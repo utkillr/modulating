@@ -23,6 +23,7 @@ class Complex:
         self.number = number
         if self.number < 0:
             self.number *= (-1)
+            print("FU, number should be > 0. Negating...")
         if self.number < 1:
             self.lowerOne = True
             self.number = 2 - self.number
@@ -68,7 +69,7 @@ class Complex:
         if self.lowerOne:
             if self.savedOne:
                 if self.number > 0.0000000001:
-                    return str(1-self.number)
+                    return str(1 - self.number)
                 else:
                     return "1 - " + str(self.number)
             else:
@@ -78,6 +79,7 @@ class Complex:
                 return "1 + " + str(self.number)
             else:
                 return str(self.number)
+
 
 """ num is number to work,
     iterates is number of repeatings for sqrt and sqr
@@ -90,4 +92,5 @@ def main(num, iterates=100, mc_loren_accuracy=10):
     x.magic_function(iterates, True)
     print(x)
 
-main(0.1, 100, 20)
+
+"""main(256, 52, 20)"""
