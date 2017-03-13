@@ -1,6 +1,6 @@
 import math
 import numpy
-
+#import matplotlib.pyplot as plot
 
 def mc_loren_summary(num, iterates):
     res = 0
@@ -11,7 +11,6 @@ def mc_loren_summary(num, iterates):
         else:
             res -= pre_res
     return res
-
 
 class Complex:
     mc_loren_accuracy = 10
@@ -62,13 +61,14 @@ class Complex:
     def magic_function(self, iterates, out):
         self.sqrt_n(iterates)
         if out:
+            print("After sqr:")
             print(self)
         self.sqr_n(iterates)
 
     def __str__(self):
         if self.lowerOne:
             if self.savedOne:
-                if self.number > 0.0000000001:
+                if self.number > 0.000000001:
                     return str(1 - self.number)
                 else:
                     return "1 - " + str(self.number)
@@ -76,7 +76,10 @@ class Complex:
                 return str(2 - self.number)
         else:
             if self.savedOne:
-                return "1 + " + str(self.number)
+                if self.number > 0.000000001:
+                    return str(1+self.number)
+                else:
+                    return "1 + " + str(self.number)
             else:
                 return str(self.number)
 
@@ -86,11 +89,20 @@ class Complex:
     mc_loren_accuracy is amount of members in mcLoren summary
 """
 def main(num, iterates=100, mc_loren_accuracy=10):
+
     x = Complex(num, mc_loren_accuracy)
     print("sqrt and sqr " + str(iterates) + " times:")
+    print("Number before:")
     print(x)
     x.magic_function(iterates, True)
+    print("Number after:")
     print(x)
 
+    try:
+        delta = num - float(x.__str__())
+        eps = numpy.abs(delta) / num
 
-"""main(256, 52, 20)"""
+        print("Relative error: ")
+        print(eps)
+    except ValueError:
+        print("Deviation from 1 is lower than ", 0.000000001, "\nCant count epsilon well")
