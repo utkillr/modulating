@@ -57,8 +57,8 @@ def main(k, base):
     sorted_sum_for_x = direct_sum(sorted_x)
     print("Error of downsorted sum:", relative_error(exact_sum_for_x, sorted_sum_for_x))
 
-    Kahan_sum_for_x = kahan_sum(x)  # сумма всех элементов по порядку
-    print("Погрешность суммирования по Кэхэну:", relative_error(exact_sum_for_x, Kahan_sum_for_x))
+    kahan_sum_for_x = kahan_sum(x)
+    print("Error of Kahan sum:", relative_error(exact_sum_for_x, kahan_sum_for_x))
 
 
 main(7, 10)
