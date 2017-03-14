@@ -35,6 +35,7 @@ def kahan_sum(x):
         summ = t
     return summ
 
+
 def main(k, base):
     x = samples(k, base)
 
@@ -58,5 +59,6 @@ def main(k, base):
 
     Kahan_sum_for_x = kahan_sum(x)  # сумма всех элементов по порядку
     print("Погрешность суммирования по Кэхэну:", relative_error(exact_sum_for_x, Kahan_sum_for_x))
+
 
 main(7, 10)
