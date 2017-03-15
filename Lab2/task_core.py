@@ -13,7 +13,7 @@ def samples(k):
 
 
 def exact_sum(k):
-    return 1/2 * (np.sin(k) + np.cos(k)/np.tan(1/2) + 1/np.tan(1/2))
+    return 1.0/2 * (np.sin(k) - np.cos(k)/np.tan(1.0/2) + 1/np.tan(1.0/2))
 
 
 def direct_sum(x):
