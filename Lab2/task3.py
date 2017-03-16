@@ -1,5 +1,5 @@
 import numpy as np
-import Lab2.task_core as util
+import Lab2.task_kahan_core as util
 
 
 def main(k):
@@ -20,4 +20,4 @@ def main(k):
     print("Error of Kahan sum:", util.relative_error(exact_sum_for_x, kahan_sum_for_x))
 
 
-main(10)
+main(20)
