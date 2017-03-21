@@ -57,4 +57,4 @@ def main(k):
     print("Error of downsorted absolute Direct sum:", util.relative_error(exact_sum_for_x, downsorted_absolute_direct_sum_for_x))
     print("Error of downsorted absolute Kahan sum:\t", util.relative_error(exact_sum_for_x, downsorted_absolute_kahan_sum_for_x))
 
-main(20)
+main(50)
