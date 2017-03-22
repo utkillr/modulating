@@ -6,29 +6,18 @@ def kahan_mean(x):
     return kahan.kahan_sum(x) / len(x)
 
 def oneline_variance_kahan(x):
-    m_now = x[0]
-    m_next = (x[1])
-    x_now = x[0]
-
-    summ = 0.0
-    error_summ = 0.0
-    for n in range(1, len(x) - 1):
-        sum_member = (x_now - m_now) ** 2 + len(x) * ((m_now - m_next) ** 2)
-        y = sum_member - error_summ
-        t = summ + y
-        error_summ = (t - summ) - y
-        summ = t
-
-        m_now = m_next
-        m_next = (m_now * (n) + x[n + 1]) / (n + 1)
-
-    sum_member = (x_now - m_now) ** 2 + len(x) * ((m_now - m_next) ** 2)
-    y = sum_member - error_summ
-    t = summ + y
-    error_summ = (t - summ) - y
-    summ = t
-
-    return summ
+    n = len(x)
+    m = x[0]  # мат ожидание
+    m2 = (x[0] + x[1]) / 2.0  # следующее мат ожидание
+    res = (x[0] - m) ** 2 + n * (m - m2) ** 2
+    alpha = 0.0
+    for i in range(1, n - 1):
+        m = m2
+        alpha = m - m2
+        m2 = (m2 * (i + 1) + x[i + 1]) / (i + 2)
+        res = (x[i] - m) ** 2 + alpha ** 2
+    # res += alpha * n
+    return res
 
 
 def main(mean, delta):
