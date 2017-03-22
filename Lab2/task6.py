@@ -1,12 +1,41 @@
 import numpy as np
 import Lab2.mean_core as util
+import Lab2.task_kahan_core as kahan
+
+def kahan_mean(x):
+    return kahan.kahan_sum(x) / len(x)
+
+def oneline_variance_kahan(x):
+    m_now = x[0]
+    m_next = (x[1])
+    x_now = x[0]
+
+    summ = 0.0
+    error_summ = 0.0
+    for n in range(1, len(x) - 1):
+        sum_member = (x_now - m_now) ** 2 + len(x) * ((m_now - m_next) ** 2)
+        y = sum_member - error_summ
+        t = summ + y
+        error_summ = (t - summ) - y
+        summ = t
+
+        m_now = m_next
+        m_next = (m_now * (n) + x[n + 1]) / (n + 1)
+
+    sum_member = (x_now - m_now) ** 2 + len(x) * ((m_now - m_next) ** 2)
+    y = sum_member - error_summ
+    t = summ + y
+    error_summ = (t - summ) - y
+    summ = t
+
+    return summ
 
 
 def main(mean, delta):
     x = util.samples(1000000, mean, delta)
 
-    print("Exact var, Direct first var, Direct second var, Oneline second var:")
-    print(util.exact_variance(delta), util.direct_first_var(x), util.direct_second_var(x), util.oneline_second_var(x))
+    print("Exact var, Direct first var, My var:")
+    print(util.exact_variance(delta), util.direct_first_var(x), oneline_variance_kahan(x))
 
     print()
 
@@ -27,10 +56,8 @@ def main(mean, delta):
 
     print("Ошибка первой оценки дисперсии для последовательного суммирования:\t",
           util.relative_error(util.exact_variance(delta), util.direct_first_var(x)))
-    print("Ошибка второй оценки дисперсии для последовательного суммирования:\t",
-          util.relative_error(util.exact_variance(delta), util.direct_second_var(x)))
-    print("Ошибка второй оценки дисперсии для однопроходного суммирования:\t\t",
-          util.relative_error(util.exact_variance(delta), util.oneline_second_var(x)))
+    print("Ошибка моей оценки дисперсии для последовательного суммирования:\t",
+          util.relative_error(util.exact_variance(delta), oneline_variance_kahan(x)))
 
 
 main(1e6, 1e-5)

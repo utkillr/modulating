@@ -38,7 +38,7 @@ def oneline_second_var(x):
     for n in range(1, len(x)):
         m = (m * (n - 1) + x[n]) / n
         m_sq = (m_sq * (n - 1) + x[n] ** 2) / n
-    return m_sq-m**2
+    return m_sq - m ** 2
 
 
 def relative_error(x0, x):
