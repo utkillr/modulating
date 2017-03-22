@@ -20,4 +20,4 @@ def main(k):
     print("Error of Kahan sum:", util.relative_error(exact_sum_for_x, kahan_sum_for_x))
 
 
-main(20)
+main(1000)
